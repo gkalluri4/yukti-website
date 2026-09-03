@@ -38,45 +38,53 @@
     <div class="container">
       <div class="contact-grid">
         <div class="contact-form">
-          <form action="https://formspree.io/f/your-form-id" method="POST">
+          <form id="contact-form" method="POST">
             <div class="form-group">
               <label for="name">Your name</label>
-              <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+              <input type="text" id="name" name="entry.830781481" placeholder="Jane Smith" required>
             </div>
             <div class="form-group">
               <label for="email">Email address</label>
-              <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+              <input type="email" id="email" name="entry.1401763312" placeholder="jane@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone (optional)</label>
+              <input type="tel" id="phone" name="entry.1932099211" placeholder="(714) 555-0100">
             </div>
             <div class="form-group">
               <label for="role">I am a...</label>
-              <select id="role" name="role" required>
+              <select id="role" name="entry.1233882160" required>
                 <option value="" disabled selected>Select your role</option>
-                <option value="restaurant-owner">Restaurant owner</option>
-                <option value="cpa">CPA / Bookkeeper</option>
-                <option value="cpa-firm">CPA firm (multiple restaurant clients)</option>
-                <option value="other">Other</option>
+                <option value="Restaurant Owner/Operator">Restaurant owner / operator</option>
+                <option value="CPA Firm">CPA firm</option>
+                <option value="Restaurant Accountant">Restaurant accountant / bookkeeper</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="restaurants">How many restaurants?</label>
-              <select id="restaurants" name="restaurants">
-                <option value="" disabled selected>Select</option>
-                <option value="1">1 restaurant</option>
-                <option value="2-5">2-5 restaurants</option>
-                <option value="6-15">6-15 restaurants</option>
-                <option value="15+">15+ restaurants</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="platforms">Which platforms does the restaurant use?</label>
-              <input type="text" id="platforms" name="platforms" placeholder="e.g., DoorDash, Uber Eats, Toast, Clover...">
-            </div>
-            <div class="form-group">
-              <label for="message">Anything else we should know?</label>
-              <textarea id="message" name="message" placeholder="Tell us about your current accounting workflow, pain points, or questions..."></textarea>
+              <label for="message">Tell us about your needs</label>
+              <textarea id="message" name="entry.432535411" placeholder="How many restaurants, which platforms (DoorDash, Uber Eats, Toast...), your current accounting workflow, pain points, or questions..." required></textarea>
             </div>
             <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Request free trial access</button>
           </form>
+          <div id="contact-thanks" hidden style="padding: 32px 24px; background: var(--green-50); border: 1px solid var(--green-100); border-radius: var(--radius-sm); text-align: center;">
+            <h3 style="color: var(--green-900); margin-bottom: 8px;">Thanks — we got it!</h3>
+            <p style="color: var(--gray-600); margin: 0;">We'll be in touch within 24 hours, usually much faster.</p>
+          </div>
+          <script>
+            document.getElementById('contact-form').addEventListener('submit', function (e) {
+              e.preventDefault();
+              var form = e.target;
+              fetch('https://docs.google.com/forms/d/e/1FAIpQLSdFSqdvaiFTsx4cIm07YWxEXjrMdXobFAA3fCujiSxQc02pVw/formResponse', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(new FormData(form)).toString()
+              }).finally(function () {
+                form.hidden = true;
+                document.getElementById('contact-thanks').hidden = false;
+              });
+            });
+          </script>
         </div>
         <div class="contact-info">
           <h2>We'd love to hear from you</h2>
